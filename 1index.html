@@ -1,1 +1,820 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uncknow1986 — Биография</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/orbitron@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/orbitron@latest/latin-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/orbitron@latest/latin-900-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/rajdhani@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/rajdhani@latest/latin-600-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-400-normal.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bg: #0a0a0f;
+    --bg-2: #0f1419;
+    --teal: #00e5d0;
+    --teal-dark: #00a89a;
+    --teal-glow: #00ffd5;
+    --teal-dim: #0d3d38;
+    --text: #e0f7f4;
+    --text-dim: #7a9e9a;
+  }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  
+  /* Canvas background */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.6;
+  }
+  
+  /* Grid overlay */
+  .grid-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: 
+      linear-gradient(rgba(0,229,208,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,208,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(10,10,15,0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,229,208,0.1);
+  }
+  
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--teal);
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(0,229,208,0.5);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+  
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    position: relative;
+  }
+  
+  .nav-links a:hover {
+    color: var(--teal);
+  }
+  
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 0;
+    width: 0; height: 1px;
+    background: var(--teal);
+    transition: width 0.3s;
+  }
+  
+  .nav-links a:hover::after { width: 100%; }
+  
+  /* Hero Section */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px 60px;
+    position: relative;
+  }
+  
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--teal);
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeInUp 1s 0.3s forwards;
+  }
+  
+  .hero-tag::before, .hero-tag::after {
+    content: '//';
+    margin: 0 15px;
+    opacity: 0.4;
+  }
+  
+  .hero-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--teal-glow), var(--teal), var(--teal-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 80px rgba(0,229,208,0.3);
+    opacity: 0;
+    animation: fadeInUp 1s 0.6s forwards;
+    position: relative;
+  }
+  
+  .hero-name::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    opacity: 0;
+    animation: fadeInUp 1s 1s forwards;
+  }
+  
+  .hero-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-top: 30px;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeInUp 1s 1.2s forwards;
+  }
+  
+  .aliases {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 1s 1.5s forwards;
+  }
+  
+  .alias {
+    padding: 8px 20px;
+    border: 1px solid var(--teal-dim);
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--teal);
+    background: rgba(0,229,208,0.05);
+    transition: all 0.3s;
+    cursor: default;
+  }
+  
+  .alias:hover {
+    background: rgba(0,229,208,0.15);
+    border-color: var(--teal);
+    box-shadow: 0 0 20px rgba(0,229,208,0.2);
+    transform: translateY(-3px);
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeInUp 1s 2s forwards, bounce 2s 3s infinite;
+  }
+  
+  .scroll-indicator svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--teal);
+    opacity: 0.5;
+  }
+  
+  /* Sections */
+  section {
+    padding: 120px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--teal);
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    opacity: 0.7;
+  }
+  
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--text);
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px; left: 0;
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+  }
+  
+  /* About Section */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  .about-text p {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+  
+  .about-text .highlight {
+    color: var(--teal);
+    font-weight: 600;
+  }
+  
+  .about-visual {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .about-visual-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  .hex-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--teal-dim);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+  }
+  
+  .hex-ring:nth-child(1) { width: 100%; height: 100%; }
+  .hex-ring:nth-child(2) { width: 75%; height: 75%; animation-direction: reverse; animation-duration: 15s; border-color: rgba(0,229,208,0.3); }
+  .hex-ring:nth-child(3) { width: 50%; height: 50%; animation-duration: 10s; }
+  
+  .hex-ring::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 50%;
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--teal);
+  }
+  
+  .center-symbol {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--teal);
+    text-shadow: 0 0 30px var(--teal);
+  }
+  
+  /* Skills / Interests */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  
+  .skill-card {
+    background: linear-gradient(135deg, rgba(0,229,208,0.05), rgba(0,229,208,0.01));
+    border: 1px solid rgba(0,229,208,0.15);
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: default;
+  }
+  
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--teal);
+    transition: height 0.4s;
+  }
+  
+  .skill-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0,229,208,0.1);
+  }
+  
+  .skill-card:hover::before { height: 100%; }
+  
+  .skill-icon {
+    width: 50px; height: 50px;
+    margin-bottom: 20px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 1.5;
+  }
+  
+  .skill-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+  
+  .skill-desc {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  /* Timeline / Education */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 100%;
+    background: linear-gradient(to bottom, var(--teal), var(--teal-dim), transparent);
+  }
+  
+  .timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    padding-left: 30px;
+  }
+  
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: -47px;
+    width: 14px; height: 14px;
+    border: 2px solid var(--teal);
+    background: var(--bg);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--teal);
+  }
+  
+  .timeline-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--teal);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  
+  .timeline-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  .timeline-desc {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  
+  /* Quote Section */
+  .quote-section {
+    text-align: center;
+    padding: 100px 40px;
+    position: relative;
+  }
+  
+  .quote {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    color: var(--text);
+    letter-spacing: 2px;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    font-weight: 400;
+  }
+  
+  .quote::before, .quote::after {
+    content: '"';
+    font-size: 4rem;
+    color: var(--teal);
+    opacity: 0.3;
+    position: absolute;
+    font-family: serif;
+  }
+  
+  .quote::before { top: -30px; left: -20px; }
+  .quote::after { bottom: -60px; right: -20px; }
+  
+  .quote span {
+    color: var(--teal);
+    text-shadow: 0 0 20px rgba(0,229,208,0.3);
+  }
+  
+  /* Footer */
+  footer {
+    padding: 40px;
+    text-align: center;
+    border-top: 1px solid rgba(0,229,208,0.1);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+  
+  footer .teal { color: var(--teal); }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+  
+  @keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 15px 20px; }
+    .nav-links { gap: 15px; }
+    .nav-links a { font-size: 0.75rem; }
+    section { padding: 80px 20px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { max-width: 300px; margin: 0 auto; }
+    .timeline { padding-left: 30px; }
+    .timeline-item { padding-left: 20px; }
+    .timeline-item::before { left: -37px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grid-overlay"></div>
+
+<div class="content">
+  <nav>
+    <div class="logo">UNC_1986</div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#path">path</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">PERSONAL FILE</div>
+    <h1 class="hero-name">UNCKNOW1986</h1>
+    <p class="hero-subtitle">Техник-технолог · Проектировщик · Исследователь</p>
+    <div class="aliases">
+      <div class="alias">unc</div>
+      <div class="alias">paradox</div>
+      <div class="alias">1986</div>
+      <div class="alias">тау-5-ый</div>
+    </div>
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+        <path d="M7 10l5 5 5-5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header reveal">
+      <div class="section-number">01 //</div>
+      <h2 class="section-title">О СЕБЕ</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Меня знают под разными именами — <span class="highlight">unc</span>, 
+          <span class="highlight">paradox</span>, <span class="highlight">1986</span>, 
+          <span class="highlight">тау-5-ый</span>. За каждым псевдонимом стоит человек, 
+          который не боится пробовать новое и идти своим путём.
+        </p>
+        <p>
+          Я увлекаюсь <span class="highlight">проектированием</span> во всех его направлениях, 
+          но моё сердце принадлежит <span class="highlight">металлообработке</span>. 
+          Металл — это язык, на котором я говорю с миром.
+        </p>
+        <p>
+          Постоянно изучаю что-то новое, пробую разные направления, 
+          расширяю горизонты. Каждый день — это возможность стать лучше, 
+          чем вчера.
+        </p>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-visual-inner">
+          <div class="hex-ring"></div>
+          <div class="hex-ring"></div>
+          <div class="hex-ring"></div>
+          <div class="center-symbol">τ5</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <div class="section-number">02 //</div>
+      <h2 class="section-title">УВЛЕЧЕНИЯ</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <svg class="skill-icon" viewBox="0 0 50 50">
+          <rect x="5" y="5" width="40" height="40" rx="2"/>
+          <line x1="5" y1="20" x2="45" y2="20"/>
+          <line x1="20" y1="20" x2="20" y2="45"/>
+          <circle cx="32" cy="32" r="6"/>
+        </svg>
+        <h3 class="skill-title">ПРОЕКТИРОВАНИЕ</h3>
+        <p class="skill-desc">
+          Проектирование во всех его направлениях — от концепции до реализации. 
+          Создание чертежей, 3D-моделей и технических решений.
+        </p>
+      </div>
+      <div class="skill-card reveal">
+        <svg class="skill-icon" viewBox="0 0 50 50">
+          <path d="M10 40 L25 10 L40 40 Z"/>
+          <line x1="17" y1="28" x2="33" y2="28"/>
+          <circle cx="25" cy="20" r="2"/>
+        </svg>
+        <h3 class="skill-title">МЕТАЛЛООБРАБОТКА</h3>
+        <p class="skill-desc">
+          Моё основное призвание. Токарные, фрезерные работы, 
+          работа с металлом на высшем уровне точности.
+        </p>
+      </div>
+      <div class="skill-card reveal">
+        <svg class="skill-icon" viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="18"/>
+          <path d="M15 25 Q25 10 35 25 Q25 40 15 25"/>
+          <circle cx="25" cy="25" r="3"/>
+        </svg>
+        <h3 class="skill-title">ПОЗНАНИЕ</h3>
+        <p class="skill-desc">
+          Изучаю много разного, пробую новое. 
+          Непрерывное развитие и расширение кругозора — моя философия.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATH / EDUCATION -->
+  <section id="path">
+    <div class="section-header reveal">
+      <div class="section-number">03 //</div>
+      <h2 class="section-title">ПУТЬ</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year">ОБРАЗОВАНИЕ</div>
+        <h3 class="timeline-title">ТЕХНИК-ТЕХНОЛОГ</h3>
+        <p class="timeline-desc">
+          Получил профессиональное образование в области технологии. 
+          Освоил основы металлообработки, проектирования и производственных процессов.
+        </p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">ЦЕЛЬ</div>
+        <h3 class="timeline-title">ИНЖЕНЕР-КОНСТРУКТОР</h3>
+        <p class="timeline-desc">
+          Стремлюсь стать инженером-конструктором по металлообработке. 
+          Соединить теорию и практику, создавать решения, 
+          которые будут работать безупречно.
+        </p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">СЕГОДНЯ</div>
+        <h3 class="timeline-title">НЕПРЕРЫВНОЕ РАЗВИТИЕ</h3>
+        <p class="timeline-desc">
+          Каждый день изучаю что-то новое, пробую разные направления, 
+          оттачиваю мастерство. Путь — это и есть цель.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section reveal">
+    <p class="quote">
+      Металл не прощает ошибок, но <span>награждает тех</span>, 
+      кто не боится <span>идти до конца</span>
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2026 <span class="teal">UNCKNOW1986</span> // ALL RIGHTS RESERVED</p>
+  </footer>
+</div>
+
+<script>
+  // Particle background
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let mouse = { x: -1000, y: -1000 };
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.alpha = Math.random() * 0.5 + 0.2;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      
+      // Mouse interaction
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 150) {
+        this.x += dx / dist * 0.5;
+        this.y += dy / dist * 0.5;
+      }
+      
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 229, 208, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  // Create particles
+  const particleCount = Math.min(80, Math.floor(window.innerWidth / 20));
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0, 229, 208, ${0.15 * (1 - dist/120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    drawConnections();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 100);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth alias hover effect
+  document.querySelectorAll('.alias').forEach(alias => {
+    alias.addEventListener('mouseenter', function() {
+      this.style.transform = `translateY(-3px) rotate(${(Math.random()-0.5)*3}deg)`;
+    });
+    alias.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
+</script>
+
+</body>
+</html>
