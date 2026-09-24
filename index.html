@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unkcnow1986 — личный сайт</title>
-  <meta name="description" content="Персональный сайт Unkcnow1986. Обо мне, проекты и контакты.">
+  <title>Unkcnow1986 — портфолио 3D-моделей в КОМПАС-3D</title>
+  <meta name="description" content="Портфолио Unkcnow1986: 3D-модели, детали, сборки и чертежи в КОМПАС-3D.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:,">
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a href="/" class="logo">Unkcnow1986</a>
+      <a href="#home" class="logo">Unkcnow1986</a>
 
       <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-nav">
         ☰
@@ -19,98 +19,360 @@
 
       <nav class="nav" id="primary-nav" aria-label="Основная навигация">
         <ul>
-          <li><a href="/" class="active">Главная</a></li>
-          <li><a href="/about.html">Обо мне</a></li>
-          <li><a href="/contact.html">Контакты</a></li>
+          <li><a href="#home" class="active">Главная</a></li>
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#portfolio">Модели</a></li>
+          <li><a href="#contact">Контакты</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow">Портфолио • КОМПАС-3D</p>
+
+          <h1>
+            Unkcnow1986 —
+            <span class="gradient-text">3D-модели и чертежи</span>
+          </h1>
+
+          <p class="lead">
+            Кратко о себе: работаю в КОМПАС-3D, создаю 3D-модели деталей, сборок
+            и оформляю чертежи. Здесь собираю примеры своих работ: модели,
+            визуализации, узлы и технические решения.
+          </p>
+
+          <div class="actions">
+            <a href="#portfolio" class="btn btn-primary">Смотреть модели</a>
+            <a href="#contact" class="btn btn-secondary">Написать мне</a>
+          </div>
+        </div>
+
+        <aside class="technical-panel">
+          <h2>Профиль</h2>
+
+          <ul class="profile-list">
+            <li>
+              <span>Инструмент</span>
+              <strong>КОМПАС-3D</strong>
+            </li>
+            <li>
+              <span>Направление</span>
+              <strong>3D-моделирование</strong>
+            </li>
+            <li>
+              <span>Формат работ</span>
+              <strong>Детали, сборки, чертежи</strong>
+            </li>
+            <li>
+              <span>Статус</span>
+              <strong>Портфолио пополняется</strong>
+            </li>
+          </ul>
+
+          <div class="panel-note">
+            Это стартовая версия. Позже сюда можно добавить реальные скриншоты
+            моделей, описания задач и ссылки на файлы.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section">
       <div class="container">
-        <p class="eyebrow">Персональный сайт</p>
-        <h1>Привет, я <span class="gradient-text">Unkcnow1986</span></h1>
-        <p class="lead">
-          Это мой личный сайт. Здесь можно рассказать о себе, показать проекты,
-          добавить контакты и сделать страницу визиткой.
+        <h2 class="section-title">Обо мне</h2>
+
+        <div class="profile-card">
+          <div class="avatar">U</div>
+
+          <div class="profile-text">
+            <h3>Unkcnow1986</h3>
+
+            <p>
+              Я занимаюсь 3D-моделированием в КОМПАС-3D. Создаю детали,
+              сборочные единицы, работаю с геометрией,装配очными взаимосвязями
+              и оформлением технической документации.
+            </p>
+
+            <p>
+              В этом портфолио будут собраны мои模型ки: примеры деталей,
+              узлов, сборок и чертежей. Каждая работа может содержать краткое
+              описание задачи, особенности модели и скриншоты из КОМПАС-3D.
+            </p>
+
+            <div class="skills">
+              <span class="skill-chip">КОМПАС-3D</span>
+              <span class="skill-chip">3D-модели</span>
+              <span class="skill-chip">Детали</span>
+              <span class="skill-chip">Сборки</span>
+              <span class="skill-chip">Чертежи</span>
+              <span class="skill-chip">Эскизы</span>
+              <span class="skill-chip">Параметрические модели</span>
+              <span class="skill-chip">STEP / PDF / DXF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section portfolio-section">
+      <div class="container">
+        <h2 class="section-title">Мои модели</h2>
+
+        <p class="section-description">
+          Ниже — карточки работ. Пока это заглушки. Когда у тебя будут скриншоты
+          моделей, просто замени placeholder на изображение и подпиши работу.
         </p>
 
-        <div class="actions">
-          <a href="/about.html" class="btn btn-primary">Обо мне</a>
-          <a href="/contact.html" class="btn btn-secondary">Написать мне</a>
+        <div class="filters">
+          <button type="button" class="filter-btn active" data-filter="all">Все</button>
+          <button type="button" class="filter-btn" data-filter="detail">Детали</button>
+          <button type="button" class="filter-btn" data-filter="assembly">Сборки</button>
+          <button type="button" class="filter-btn" data-filter="drawing">Чертежи</button>
+          <button type="button" class="filter-btn" data-filter="render">Визуализация</button>
         </div>
 
-        <div class="card-grid">
-          <article class="card">
-            <h3>Просто</h3>
-            <p>
-              Минимальный дизайн, понятная структура и быстрый доступ к главной информации.
-            </p>
+        <div class="gallery" id="gallery">
+          <article class="model-card" data-category="detail">
+            <div class="model-media">
+              <div class="model-placeholder">Скриншот модели</div>
+              <!--
+                Когда будет картинка, замени блок выше на:
+                <img src="models/model1.jpg" alt="Пример детали в КОМПАС-3D">
+              -->
+            </div>
+
+            <div class="model-body">
+              <div class="model-top">
+                <h3>Деталь 01</h3>
+                <span class="model-type">Деталь</span>
+              </div>
+
+              <p>
+                Краткое описание модели: что это за деталь, для чего она нужна,
+                какие особенности геометрии или посадки использованы.
+              </p>
+
+              <ul class="tags">
+                <li>КОМПАС-3D</li>
+                <li>Твердотельное моделирование</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="card">
-            <h3>Быстро</h3>
-            <p>
-              Сайт работает на статических страницах, поэтому открывается быстро и стабильно.
-            </p>
+          <article class="model-card" data-category="assembly">
+            <div class="model-media">
+              <div class="model-placeholder">Скриншот сборки</div>
+              <!--
+                <img src="models/model2.jpg" alt="Пример сборки в КОМПАС-3D">
+              -->
+            </div>
+
+            <div class="model-body">
+              <div class="model-top">
+                <h3>Сборка 01</h3>
+                <span class="model-type">Сборка</span>
+              </div>
+
+              <p>
+                Пример сборочной единицы: описание узлов, взаимного расположения
+                деталей, крепежа и основных размеров.
+              </p>
+
+              <ul class="tags">
+                <li>Сборка</li>
+                <li>Узел</li>
+                <li>КОМПАС-3D</li>
+              </ul>
+            </div>
           </article>
 
-          <article class="card">
-            <h3>Твой стиль</h3>
-            <p>
-              Later можно заменить тексты, цвета, добавить фото, проекты, соцсети и блог.
-            </p>
+          <article class="model-card" data-category="drawing">
+            <div class="model-media">
+              <div class="model-placeholder">Скриншот чертежа</div>
+              <!--
+                <img src="models/model3.jpg" alt="Пример чертежа в КОМПАС-3D">
+              -->
+            </div>
+
+            <div class="model-body">
+              <div class="model-top">
+                <h3>Чертеж 01</h3>
+                <span class="model-type">Чертеж</span>
+              </div>
+
+              <p>
+                Оформление чертежа детали или сборочной единицы: виды, разрезы,
+                сечения, размеры и технические требования.
+              </p>
+
+              <ul class="tags">
+                <li>Чертеж</li>
+                <li>Оформление</li>
+                <li>Размеры</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="model-card" data-category="render">
+            <div class="model-media">
+              <div class="model-placeholder">Визуализация</div>
+              <!--
+                <img src="models/model4.jpg" alt="Визуализация модели в КОМПАС-3D">
+              -->
+            </div>
+
+            <div class="model-body">
+              <div class="model-top">
+                <h3>Визуализация 01</h3>
+                <span class="model-type">Рендер</span>
+              </div>
+
+              <p>
+                Пример presentation-вида модели: материалы, освещение, ракурс
+                и общее восприятие изделия.
+              </p>
+
+              <ul class="tags">
+                <li>Визуализация</li>
+                <li>Презентация</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="model-card" data-category="detail render">
+            <div class="model-media">
+              <div class="model-placeholder">Модель + вид</div>
+              <!--
+                <img src="models/model5.jpg" alt="Модель детали с визуализацией">
+              -->
+            </div>
+
+            <div class="model-body">
+              <div class="model-top">
+                <h3>Комбинированная карточка</h3>
+                <span class="model-type">Деталь / Рендер</span>
+              </div>
+
+              <p>
+                Так можно показывать одну работу сразу в нескольких категориях:
+                например, модель детали и её визуализация.
+              </p>
+
+              <ul class="tags">
+                <li>Деталь</li>
+                <li>Визуализация</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="model-card" data-category="assembly drawing">
+            <div class="model-media">
+              <div class="model-placeholder">Сборка + чертеж</div>
+              <!--
+                <img src="models/model6.jpg" alt="Сборка и чертеж в КОМПАС-3D">
+              -->
+            </div>
+
+            <div class="model-body">
+              <div class="model-top">
+                <h3>Сборочный узел</h3>
+                <span class="model-type">Сборка / Чертеж</span>
+              </div>
+
+              <p>
+                Пример узла с чертежом: можно показать 3D-сборку и связанную
+                с ней техническую документацию.
+              </p>
+
+              <ul class="tags">
+                <li>Сборка</li>
+                <li>Чертеж</li>
+                <li>КОМПАС-3D</li>
+              </ul>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section id="contact" class="section contact-section">
       <div class="container">
-        <h2 class="section-title">Что можно разместить на этом сайте</h2>
+        <h2 class="section-title">Контакты</h2>
 
-        <div class="card-grid">
-          <article class="card">
-            <h3>Визитка</h3>
-            <p>
-              Имя, короткое описание, контакты и ссылки на соцсети.
+        <div class="contact-grid">
+          <div class="info-card">
+            <h3>Написать сообщение</h3>
+
+            <p class="muted">
+              Форма работает через Netlify Forms. После отправки сообщение
+              появится в панели Netlify в разделе Forms.
             </p>
-          </article>
 
-          <article class="card">
-            <h3>Портфолио</h3>
-            <p>
-              Проекты, работы, скриншоты, описания и ссылки на готовые сайты.
-            </p>
-          </article>
+            <form
+              id="contactForm"
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              class="contact-form"
+            >
+              <input type="hidden" name="form-name" value="contact">
 
-          <article class="card">
-            <h3>Блог</h3>
-            <p>
-              Заметки, статьи, мысли, обзоры и личные записи.
-            </p>
-          </article>
+              <p class="hidden">
+                <label>
+                  Не заполняйте это поле:
+                  <input name="bot-field">
+                </label>
+              </p>
 
-          <article class="card">
-            <h3>Услуги</h3>
-            <p>
-              Если делаешь что-то на заказ, можно описать услуги и цены.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+              <label>
+                Имя
+                <input type="text" name="name" required placeholder="Как вас зовут?">
+              </label>
 
-    <section class="section cta-section">
-      <div class="container">
-        <div class="cta-card">
-          <h2>Хочешь связаться?</h2>
-          <p>
-            Заполни форму на странице контактов, и сообщение придёт прямо в панель Netlify.
-          </p>
-          <a href="/contact.html" class="btn btn-primary">Открыть контакты</a>
+              <label>
+                Email
+                <input type="email" name="email" required placeholder="your@email.com">
+              </label>
+
+              <label>
+                Сообщение
+                <textarea name="message" required placeholder="Ваше сообщение..."></textarea>
+              </label>
+
+              <button type="submit" class="btn btn-primary">Отправить</button>
+
+              <p id="formStatus" class="form-status" hidden></p>
+            </form>
+          </div>
+
+          <aside class="info-card">
+            <h3>Другие способы связи</h3>
+
+            <ul class="link-list">
+              <li>
+                Email:
+                <a href="mailto:example@example.com">example@example.com</a>
+              </li>
+              <li>
+                Telegram:
+                <a href="https://t.me/username" target="_blank" rel="noopener">@username</a>
+              </li>
+              <li>
+                GitHub:
+                <a href="https://github.com/username" target="_blank" rel="noopener">username</a>
+              </li>
+            </ul>
+
+            <div class="notice">
+              <strong>Замени на своё:</strong> email, Telegram, GitHub и текст
+              в блоке «Обо мне».
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -118,7 +380,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <span id="year"></span> Unkcnow1986</p>
+      <p>© <span id="year"></span> Unkcnow1986 • Портфолио в КОМПАС-3D</p>
     </div>
   </footer>
 
