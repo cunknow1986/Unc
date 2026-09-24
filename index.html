@@ -1,389 +1,1095 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unkcnow1986 — портфолио 3D-моделей в КОМПАС-3D</title>
-  <meta name="description" content="Портфолио Unkcnow1986: 3D-модели, детали, сборки и чертежи в КОМПАС-3D.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:,">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uncknow1986 | 3D Моделирование в КОМПАС-3D</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-400-normal.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --accent: #14b8a6;
+            --accent-light: #2dd4bf;
+            --accent-glow: rgba(20, 184, 166, 0.3);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #1a1a1a;
+            --border-accent: #0d9488;
+            --grid-color: rgba(20, 184, 166, 0.06);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-logo svg { width: 28px; height: 28px; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--accent-light); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .burger span {
+            width: 24px; height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #e2e8f0 0%, #2dd4bf 50%, #14b8a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .nickname {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .about-image svg {
+            width: 100%; height: 100%;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-light);
+            letter-spacing: 1px;
+        }
+
+        .about-text .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-text .highlight {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .info-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .info-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(20, 184, 166, 0.08);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .info-tag i {
+            font-size: 0.9rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.1);
+        }
+
+        .skill-icon {
+            width: 48px; height: 48px;
+            background: rgba(20, 184, 166, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .model-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(20, 184, 166, 0.15);
+        }
+
+        .model-preview {
+            aspect-ratio: 16/10;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .model-preview svg {
+            width: 90%; height: 90%;
+            transition: transform 0.4s;
+        }
+
+        .model-card:hover .model-preview svg {
+            transform: scale(1.05);
+        }
+
+        .model-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.8));
+        }
+
+        .model-info {
+            padding: 1.5rem;
+        }
+
+        .model-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .model-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .model-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            border-radius: 6px;
+            color: var(--accent-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.15);
+        }
+
+        .social-link i {
+            font-size: 1.3rem;
+            color: var(--accent-light);
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { 
+                display: none;
+                position: absolute;
+                top: 64px; left: 0; right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active { display: flex; }
+
+            .burger { display: flex; }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+            }
+
+            .stat { padding: 0.8rem; }
+            .stat-number { font-size: 1.4rem; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--border); 
+            border-radius: 4px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a href="#home" class="logo">Unkcnow1986</a>
-
-      <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-nav">
-        ☰
-      </button>
-
-      <nav class="nav" id="primary-nav" aria-label="Основная навигация">
-        <ul>
-          <li><a href="#home" class="active">Главная</a></li>
-          <li><a href="#about">Обо мне</a></li>
-          <li><a href="#portfolio">Модели</a></li>
-          <li><a href="#contact">Контакты</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section id="home" class="hero">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="eyebrow">Портфолио • КОМПАС-3D</p>
-
-          <h1>
-            Unkcnow1986 —
-            <span class="gradient-text">3D-модели и чертежи</span>
-          </h1>
-
-          <p class="lead">
-            Кратко о себе: работаю в КОМПАС-3D, создаю 3D-модели деталей, сборок
-            и оформляю чертежи. Здесь собираю примеры своих работ: модели,
-            визуализации, узлы и технические решения.
-          </p>
-
-          <div class="actions">
-            <a href="#portfolio" class="btn btn-primary">Смотреть модели</a>
-            <a href="#contact" class="btn btn-secondary">Написать мне</a>
-          </div>
-        </div>
-
-        <aside class="technical-panel">
-          <h2>Профиль</h2>
-
-          <ul class="profile-list">
-            <li>
-              <span>Инструмент</span>
-              <strong>КОМПАС-3D</strong>
-            </li>
-            <li>
-              <span>Направление</span>
-              <strong>3D-моделирование</strong>
-            </li>
-            <li>
-              <span>Формат работ</span>
-              <strong>Детали, сборки, чертежи</strong>
-            </li>
-            <li>
-              <span>Статус</span>
-              <strong>Портфолио пополняется</strong>
-            </li>
-          </ul>
-
-          <div class="panel-note">
-            Это стартовая версия. Позже сюда можно добавить реальные скриншоты
-            моделей, описания задач и ссылки на файлы.
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title">Обо мне</h2>
-
-        <div class="profile-card">
-          <div class="avatar">U</div>
-
-          <div class="profile-text">
-            <h3>Unkcnow1986</h3>
-
-            <p>
-              Я занимаюсь 3D-моделированием в КОМПАС-3D. Создаю детали,
-              сборочные единицы, работаю с геометрией,装配очными взаимосвязями
-              и оформлением технической документации.
-            </p>
-
-            <p>
-              В этом портфолио будут собраны мои模型ки: примеры деталей,
-              узлов, сборок и чертежей. Каждая работа может содержать краткое
-              описание задачи, особенности модели и скриншоты из КОМПАС-3D.
-            </p>
-
-            <div class="skills">
-              <span class="skill-chip">КОМПАС-3D</span>
-              <span class="skill-chip">3D-модели</span>
-              <span class="skill-chip">Детали</span>
-              <span class="skill-chip">Сборки</span>
-              <span class="skill-chip">Чертежи</span>
-              <span class="skill-chip">Эскизы</span>
-              <span class="skill-chip">Параметрические модели</span>
-              <span class="skill-chip">STEP / PDF / DXF</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="portfolio" class="section portfolio-section">
-      <div class="container">
-        <h2 class="section-title">Мои модели</h2>
-
-        <p class="section-description">
-          Ниже — карточки работ. Пока это заглушки. Когда у тебя будут скриншоты
-          моделей, просто замени placeholder на изображение и подпиши работу.
-        </p>
-
-        <div class="filters">
-          <button type="button" class="filter-btn active" data-filter="all">Все</button>
-          <button type="button" class="filter-btn" data-filter="detail">Детали</button>
-          <button type="button" class="filter-btn" data-filter="assembly">Сборки</button>
-          <button type="button" class="filter-btn" data-filter="drawing">Чертежи</button>
-          <button type="button" class="filter-btn" data-filter="render">Визуализация</button>
-        </div>
-
-        <div class="gallery" id="gallery">
-          <article class="model-card" data-category="detail">
-            <div class="model-media">
-              <div class="model-placeholder">Скриншот модели</div>
-              <!--
-                Когда будет картинка, замени блок выше на:
-                <img src="models/model1.jpg" alt="Пример детали в КОМПАС-3D">
-              -->
-            </div>
-
-            <div class="model-body">
-              <div class="model-top">
-                <h3>Деталь 01</h3>
-                <span class="model-type">Деталь</span>
-              </div>
-
-              <p>
-                Краткое описание модели: что это за деталь, для чего она нужна,
-                какие особенности геометрии или посадки использованы.
-              </p>
-
-              <ul class="tags">
-                <li>КОМПАС-3D</li>
-                <li>Твердотельное моделирование</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="model-card" data-category="assembly">
-            <div class="model-media">
-              <div class="model-placeholder">Скриншот сборки</div>
-              <!--
-                <img src="models/model2.jpg" alt="Пример сборки в КОМПАС-3D">
-              -->
-            </div>
-
-            <div class="model-body">
-              <div class="model-top">
-                <h3>Сборка 01</h3>
-                <span class="model-type">Сборка</span>
-              </div>
-
-              <p>
-                Пример сборочной единицы: описание узлов, взаимного расположения
-                деталей, крепежа и основных размеров.
-              </p>
-
-              <ul class="tags">
-                <li>Сборка</li>
-                <li>Узел</li>
-                <li>КОМПАС-3D</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="model-card" data-category="drawing">
-            <div class="model-media">
-              <div class="model-placeholder">Скриншот чертежа</div>
-              <!--
-                <img src="models/model3.jpg" alt="Пример чертежа в КОМПАС-3D">
-              -->
-            </div>
-
-            <div class="model-body">
-              <div class="model-top">
-                <h3>Чертеж 01</h3>
-                <span class="model-type">Чертеж</span>
-              </div>
-
-              <p>
-                Оформление чертежа детали или сборочной единицы: виды, разрезы,
-                сечения, размеры и технические требования.
-              </p>
-
-              <ul class="tags">
-                <li>Чертеж</li>
-                <li>Оформление</li>
-                <li>Размеры</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="model-card" data-category="render">
-            <div class="model-media">
-              <div class="model-placeholder">Визуализация</div>
-              <!--
-                <img src="models/model4.jpg" alt="Визуализация модели в КОМПАС-3D">
-              -->
-            </div>
-
-            <div class="model-body">
-              <div class="model-top">
-                <h3>Визуализация 01</h3>
-                <span class="model-type">Рендер</span>
-              </div>
-
-              <p>
-                Пример presentation-вида модели: материалы, освещение, ракурс
-                и общее восприятие изделия.
-              </p>
-
-              <ul class="tags">
-                <li>Визуализация</li>
-                <li>Презентация</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="model-card" data-category="detail render">
-            <div class="model-media">
-              <div class="model-placeholder">Модель + вид</div>
-              <!--
-                <img src="models/model5.jpg" alt="Модель детали с визуализацией">
-              -->
-            </div>
-
-            <div class="model-body">
-              <div class="model-top">
-                <h3>Комбинированная карточка</h3>
-                <span class="model-type">Деталь / Рендер</span>
-              </div>
-
-              <p>
-                Так можно показывать одну работу сразу в нескольких категориях:
-                например, модель детали и её визуализация.
-              </p>
-
-              <ul class="tags">
-                <li>Деталь</li>
-                <li>Визуализация</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="model-card" data-category="assembly drawing">
-            <div class="model-media">
-              <div class="model-placeholder">Сборка + чертеж</div>
-              <!--
-                <img src="models/model6.jpg" alt="Сборка и чертеж в КОМПАС-3D">
-              -->
-            </div>
-
-            <div class="model-body">
-              <div class="model-top">
-                <h3>Сборочный узел</h3>
-                <span class="model-type">Сборка / Чертеж</span>
-              </div>
-
-              <p>
-                Пример узла с чертежом: можно показать 3D-сборку и связанную
-                с ней техническую документацию.
-              </p>
-
-              <ul class="tags">
-                <li>Сборка</li>
-                <li>Чертеж</li>
-                <li>КОМПАС-3D</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact-section">
-      <div class="container">
-        <h2 class="section-title">Контакты</h2>
-
-        <div class="contact-grid">
-          <div class="info-card">
-            <h3>Написать сообщение</h3>
-
-            <p class="muted">
-              Форма работает через Netlify Forms. После отправки сообщение
-              появится в панели Netlify в разделе Forms.
-            </p>
-
-            <form
-              id="contactForm"
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              class="contact-form"
-            >
-              <input type="hidden" name="form-name" value="contact">
-
-              <p class="hidden">
-                <label>
-                  Не заполняйте это поле:
-                  <input name="bot-field">
-                </label>
-              </p>
-
-              <label>
-                Имя
-                <input type="text" name="name" required placeholder="Как вас зовут?">
-              </label>
-
-              <label>
-                Email
-                <input type="email" name="email" required placeholder="your@email.com">
-              </label>
-
-              <label>
-                Сообщение
-                <textarea name="message" required placeholder="Ваше сообщение..."></textarea>
-              </label>
-
-              <button type="submit" class="btn btn-primary">Отправить</button>
-
-              <p id="formStatus" class="form-status" hidden></p>
-            </form>
-          </div>
-
-          <aside class="info-card">
-            <h3>Другие способы связи</h3>
-
-            <ul class="link-list">
-              <li>
-                Email:
-                <a href="mailto:example@example.com">example@example.com</a>
-              </li>
-              <li>
-                Telegram:
-                <a href="https://t.me/username" target="_blank" rel="noopener">@username</a>
-              </li>
-              <li>
-                GitHub:
-                <a href="https://github.com/username" target="_blank" rel="noopener">username</a>
-              </li>
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <svg viewBox="0 0 28 28" fill="none">
+                    <rect x="2" y="2" width="24" height="24" rx="4" stroke="#14b8a6" stroke-width="2"/>
+                    <path d="M8 14h12M14 8v12" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="14" cy="14" r="3" stroke="#14b8a6" stroke-width="1.5"/>
+                </svg>
+                <span>Uncknow1986</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">О себе</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#portfolio">Модели</a></li>
+                <li><a href="#contact">Контакты</a></li>
             </ul>
-
-            <div class="notice">
-              <strong>Замени на своё:</strong> email, Telegram, GitHub и текст
-              в блоке «Обо мне».
-            </div>
-          </aside>
+            <button class="burger" id="burger" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-      </div>
+    </nav>
+
+    <section class="hero">
+        <svg class="hero-visual" viewBox="0 0 600 600">
+            <circle cx="300" cy="300" r="250" stroke="#14b8a6" stroke-width="0.5" fill="none"/>
+            <circle cx="300" cy="300" r="200" stroke="#14b8a6" stroke-width="0.5" fill="none"/>
+            <circle cx="300" cy="300" r="150" stroke="#14b8a6" stroke-width="0.5" fill="none"/>
+            <line x1="50" y1="300" x2="550" y2="300" stroke="#14b8a6" stroke-width="0.3"/>
+            <line x1="300" y1="50" x2="300" y2="550" stroke="#14b8a6" stroke-width="0.3"/>
+            <line x1="123" y1="123" x2="477" y2="477" stroke="#14b8a6" stroke-width="0.3"/>
+            <line x1="477" y1="123" x2="123" y2="477" stroke="#14b8a6" stroke-width="0.3"/>
+        </svg>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Открыт для заказов
+            </div>
+            <div class="nickname">&lt; Uncknow1986 /&gt;</div>
+            <h1>Проектирование и 3D-моделирование</h1>
+            <p>Металлообработка, корпуса, вставки, детали любой сложности. Делаю с энтузиазмом и любовью к инженерному делу.</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn btn-primary">
+                    <i class="bi bi-box"></i> Смотреть работы
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="bi bi-envelope"></i> Связаться
+                </a>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Unkcnow1986 • Портфолио в КОМПАС-3D</p>
-    </div>
-  </footer>
+    <section id="about">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">// обо мне</div>
+                <h2 class="section-title">Кто я такой</h2>
+            </div>
+            <div class="about-grid fade-in">
+                <div class="about-image">
+                    <svg viewBox="0 0 400 400" fill="none">
+                        <rect width="400" height="400" fill="#0a0a0a"/>
+                        <defs>
+                            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(20,184,166,0.08)" stroke-width="0.5"/>
+                            </pattern>
+                        </defs>
+                        <rect width="400" height="400" fill="url(#grid)"/>
+                        <g transform="translate(200,200)">
+                            <path d="M0 40 L80 0 L0 -40 L-80 0 Z" fill="rgba(20,184,166,0.1)" stroke="#14b8a6" stroke-width="1.5"/>
+                            <path d="M-80 0 L0 40 L0 120 L-80 80 Z" fill="rgba(20,184,166,0.15)" stroke="#14b8a6" stroke-width="1.5"/>
+                            <path d="M80 0 L0 40 L0 120 L80 80 Z" fill="rgba(20,184,166,0.08)" stroke="#14b8a6" stroke-width="1.5"/>
+                            <path d="M0 -40 L80 0 L0 40 L-80 0 Z" fill="rgba(20,184,166,0.2)" stroke="#2dd4bf" stroke-width="1.5"/>
+                            <line x1="0" y1="-40" x2="0" y2="40" stroke="#2dd4bf" stroke-width="0.5" stroke-dasharray="4,4"/>
+                            <line x1="-80" y1="0" x2="80" y2="0" stroke="#2dd4bf" stroke-width="0.5" stroke-dasharray="4,4"/>
+                        </g>
+                        <g stroke="#2dd4bf" stroke-width="0.8" opacity="0.6">
+                            <line x1="60" y1="350" x2="340" y2="350"/>
+                            <line x1="60" y1="345" x2="60" y2="355"/>
+                            <line x1="340" y1="345" x2="340" y2="355"/>
+                        </g>
+                        <text x="200" y="370" text-anchor="middle" fill="#2dd4bf" font-size="10" font-family="JetBrains Mono" opacity="0.6">280.00 mm</text>
+                        <g fill="#14b8a6" opacity="0.4">
+                            <circle cx="40" cy="40" r="2"/>
+                            <circle cx="360" cy="40" r="2"/>
+                            <circle cx="40" cy="360" r="2"/>
+                            <circle cx="360" cy="360" r="2"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="about-text">
+                    <h3>Uncknow1986</h3>
+                    <div class="subtitle">Инженер-конструктор / 3D-моделлер</div>
+                    <p>Увлекаюсь разными направлениями проектирования, но основной фокус держу на <span class="highlight">металлообработке</span> — у меня профильное образование токаря, поэтому понимаю технологию изготовления деталей изнутри.</p>
+                    <p>Есть реальный опыт работы: был <span class="highlight">помощником инженера-конструктора 1 разряда</span>, где проектировал корпуса из металла и различные вставки из пластика. Знаю, как теория превращается в реальное изделие.</p>
+                    <p>Готов браться за проекты разной сложности — от простых деталей до серьёзных сборок. Занимаюсь этим с большим энтузиазмом и постоянно развиваюсь в профессии.</p>
+                    <div class="info-tags">
+                        <span class="info-tag"><i class="bi bi-gear-wide-connected"></i> Металлообработка</span>
+                        <span class="info-tag"><i class="bi bi-tools"></i> Токарь</span>
+                        <span class="info-tag"><i class="bi bi-fire"></i> С энтузиазмом</span>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Года опыта</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Проектов</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Энтузиазм</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script src="script.js" defer></script>
+    <section id="skills">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">// компетенции</div>
+                <h2 class="section-title">Навыки и инструменты</h2>
+                <p class="section-desc">Что я умею и с чем работаю</p>
+            </div>
+            <div class="skills-grid fade-in">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="bi bi-box-seam"></i></div>
+                    <h4>3D-моделирование</h4>
+                    <p>Создание параметрических 3D-моделей деталей в КОМПАС-3D</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="bi bi-gear"></i></div>
+                    <h4>Металлообработка</h4>
+                    <p>Профильное образование токаря — понимаю технологию изнутри, знаю как деталь будет изготавливаться</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="bi bi-layers"></i></div>
+                    <h4>Корпуса и вставки</h4>
+                    <p>Опыт проектирования металлических корпусов и пластиковых вставок на реальной работе</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="bi bi-file-earmark-ruled"></i></div>
+                    <h4>Чертежи по ЕСКД</h4>
+                    <p>Оформление конструкторской документации в соответствии с ГОСТ</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="bi bi-rulers"></i></div>
+                    <h4>Листовой металл</h4>
+                    <p>Проектирование деталей из листового материала с развёртками</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="bi bi-printer"></i></div>
+                    <h4>Подготовка к печати</h4>
+                    <p>Экспорт моделей в STL/OBJ для 3D-печати и визуализации</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">// портфолио</div>
+                <h2 class="section-title">Мои модели</h2>
+                <p class="section-desc">Примеры работ, разработанных в КОМПАС-3D</p>
+            </div>
+            <div class="portfolio-grid fade-in">
+                <div class="model-card">
+                    <div class="model-preview">
+                        <svg viewBox="0 0 400 250" fill="none">
+                            <rect width="400" height="250" fill="#050505"/>
+                            <defs>
+                                <pattern id="g1" width="25" height="25" patternUnits="userSpaceOnUse">
+                                    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(20,184,166,0.06)" stroke-width="0.5"/>
+                                </pattern>
+                            </defs>
+                            <rect width="400" height="250" fill="url(#g1)"/>
+                            <g transform="translate(200,125)">
+                                <circle cx="0" cy="0" r="70" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.05)"/>
+                                <circle cx="0" cy="0" r="55" stroke="#2dd4bf" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+                                <circle cx="0" cy="0" r="20" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.1)"/>
+                                <circle cx="0" cy="0" r="8" stroke="#2dd4bf" stroke-width="1" fill="rgba(20,184,166,0.2)"/>
+                                <g stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.08)">
+                                    <rect x="-6" y="-82" width="12" height="14" rx="1"/>
+                                    <rect x="-6" y="68" width="12" height="14" rx="1"/>
+                                    <rect x="-82" y="-6" width="14" height="12" rx="1"/>
+                                    <rect x="68" y="-6" width="14" height="12" rx="1"/>
+                                    <rect x="48" y="-62" width="12" height="14" rx="1" transform="rotate(45, 54, -55)"/>
+                                    <rect x="-60" y="-62" width="12" height="14" rx="1" transform="rotate(-45, -54, -55)"/>
+                                    <rect x="48" y="48" width="12" height="14" rx="1" transform="rotate(-45, 54, 55)"/>
+                                    <rect x="-60" y="48" width="12" height="14" rx="1" transform="rotate(45, -54, 55)"/>
+                                </g>
+                                <line x1="20" y1="0" x2="55" y2="0" stroke="#2dd4bf" stroke-width="0.8"/>
+                                <line x1="-20" y1="0" x2="-55" y2="0" stroke="#2dd4bf" stroke-width="0.8"/>
+                                <line x1="0" y1="20" x2="0" y2="55" stroke="#2dd4bf" stroke-width="0.8"/>
+                                <line x1="0" y1="-20" x2="0" y2="-55" stroke="#2dd4bf" stroke-width="0.8"/>
+                            </g>
+                            <line x1="110" y1="220" x2="290" y2="220" stroke="#2dd4bf" stroke-width="0.6" opacity="0.5"/>
+                            <text x="200" y="238" text-anchor="middle" fill="#2dd4bf" font-size="9" font-family="JetBrains Mono" opacity="0.5">Ø160.00</text>
+                        </svg>
+                    </div>
+                    <div class="model-info">
+                        <h4>Цилиндрическая шестерня</h4>
+                        <p>Зубчатое колесо модуля 2.5 с внутренним отверстием под шпоночный паз</p>
+                        <div class="model-tags">
+                            <span class="tag">m=2.5</span>
+                            <span class="tag">z=32</span>
+                            <span class="tag">Сталь 45</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-preview">
+                        <svg viewBox="0 0 400 250" fill="none">
+                            <rect width="400" height="250" fill="#050505"/>
+                            <rect width="400" height="250" fill="url(#g1)"/>
+                            <g transform="translate(200,125)">
+                                <ellipse cx="0" cy="30" rx="60" ry="20" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.08)"/>
+                                <rect x="-60" y="-10" width="120" height="40" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.05)"/>
+                                <ellipse cx="0" cy="-10" rx="60" ry="20" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.1)"/>
+                                <rect x="-110" y="-5" width="50" height="20" stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.06)"/>
+                                <ellipse cx="-110" cy="5" rx="5" ry="10" stroke="#14b8a6" stroke-width="1" fill="rgba(20,184,166,0.1)"/>
+                                <rect x="60" y="-5" width="50" height="20" stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.06)"/>
+                                <ellipse cx="110" cy="5" rx="5" ry="10" stroke="#14b8a6" stroke-width="1" fill="rgba(20,184,166,0.1)"/>
+                                <rect x="-4" y="-70" width="8" height="60" stroke="#2dd4bf" stroke-width="1" fill="rgba(45,212,191,0.1)"/>
+                                <circle cx="0" cy="-80" r="25" stroke="#14b8a6" stroke-width="1.5" fill="none"/>
+                                <circle cx="0" cy="-80" r="5" stroke="#2dd4bf" stroke-width="1" fill="rgba(20,184,166,0.2)"/>
+                                <line x1="-25" y1="-80" x2="25" y2="-80" stroke="#2dd4bf" stroke-width="0.8"/>
+                                <line x1="0" y1="-105" x2="0" y2="-55" stroke="#2dd4bf" stroke-width="0.8"/>
+                                <rect x="-65" y="-15" width="5" height="40" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.15)" rx="1"/>
+                                <rect x="60" y="-15" width="5" height="40" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.15)" rx="1"/>
+                            </g>
+                            <text x="200" y="238" text-anchor="middle" fill="#2dd4bf" font-size="9" font-family="JetBrains Mono" opacity="0.5">DN50</text>
+                        </svg>
+                    </div>
+                    <div class="model-info">
+                        <h4>Запорный клапан DN50</h4>
+                        <p>Корпус клапана с ручным управлением, фланцевое присоединение</p>
+                        <div class="model-tags">
+                            <span class="tag">DN50</span>
+                            <span class="tag">PN16</span>
+                            <span class="tag">Чугун</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-preview">
+                        <svg viewBox="0 0 400 250" fill="none">
+                            <rect width="400" height="250" fill="#050505"/>
+                            <rect width="400" height="250" fill="url(#g1)"/>
+                            <g transform="translate(200,125)">
+                                <path d="M-90 40 L90 40 L100 50 L-100 50 Z" stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.08)"/>
+                                <rect x="-90" y="30" width="180" height="10" stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.06)"/>
+                                <rect x="-45" y="-40" width="90" height="70" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.08)" rx="4"/>
+                                <circle cx="0" cy="-5" r="35" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.05)"/>
+                                <circle cx="0" cy="-5" r="22" stroke="#2dd4bf" stroke-width="1" fill="rgba(45,212,191,0.08)"/>
+                                <circle cx="0" cy="-5" r="12" stroke="#14b8a6" stroke-width="1.5" fill="#050505"/>
+                                <circle cx="-70" cy="45" r="4" stroke="#2dd4bf" stroke-width="0.8" fill="rgba(45,212,191,0.15)"/>
+                                <circle cx="70" cy="45" r="4" stroke="#2dd4bf" stroke-width="0.8" fill="rgba(45,212,191,0.15)"/>
+                                <line x1="-45" y1="30" x2="-45" y2="-40" stroke="#2dd4bf" stroke-width="0.5" stroke-dasharray="3,3"/>
+                                <line x1="45" y1="30" x2="45" y2="-40" stroke="#2dd4bf" stroke-width="0.5" stroke-dasharray="3,3"/>
+                                <g fill="rgba(20,184,166,0.3)" stroke="#2dd4bf" stroke-width="0.5">
+                                    <circle cx="0" cy="-34" r="4"/>
+                                    <circle cx="24" cy="-19" r="4"/>
+                                    <circle cx="24" cy="9" r="4"/>
+                                    <circle cx="0" cy="24" r="4"/>
+                                    <circle cx="-24" cy="9" r="4"/>
+                                    <circle cx="-24" cy="-19" r="4"/>
+                                </g>
+                            </g>
+                            <text x="200" y="238" text-anchor="middle" fill="#2dd4bf" font-size="9" font-family="JetBrains Mono" opacity="0.5">Корпус подшипника</text>
+                        </svg>
+                    </div>
+                    <div class="model-info">
+                        <h4>Корпус подшипника</h4>
+                        <p>Корпус шарикового подшипника с крепёжной плитой и отверстиями под болты</p>
+                        <div class="model-tags">
+                            <span class="tag">Подшипник 6208</span>
+                            <span class="tag">СЧ20</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-preview">
+                        <svg viewBox="0 0 400 250" fill="none">
+                            <rect width="400" height="250" fill="#050505"/>
+                            <rect width="400" height="250" fill="url(#g1)"/>
+                            <g transform="translate(200,125)">
+                                <rect x="-140" y="-12" width="40" height="24" stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.08)"/>
+                                <rect x="-100" y="-18" width="60" height="36" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.1)"/>
+                                <rect x="-40" y="-15" width="80" height="30" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.08)"/>
+                                <rect x="40" y="-20" width="50" height="40" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.1)"/>
+                                <rect x="90" y="-12" width="50" height="24" stroke="#14b8a6" stroke-width="1.2" fill="rgba(20,184,166,0.08)"/>
+                                <rect x="-20" y="-17" width="40" height="5" stroke="#2dd4bf" stroke-width="0.8" fill="rgba(45,212,191,0.15)"/>
+                                <circle cx="-140" cy="0" r="3" stroke="#2dd4bf" stroke-width="0.8" fill="rgba(45,212,191,0.2)"/>
+                                <circle cx="140" cy="0" r="3" stroke="#2dd4bf" stroke-width="0.8" fill="rgba(45,212,191,0.2)"/>
+                                <line x1="-100" y1="-18" x2="-103" y2="-15" stroke="#2dd4bf" stroke-width="0.6"/>
+                                <line x1="-100" y1="18" x2="-103" y2="15" stroke="#2dd4bf" stroke-width="0.6"/>
+                                <line x1="40" y1="-20" x2="37" y2="-17" stroke="#2dd4bf" stroke-width="0.6"/>
+                                <line x1="40" y1="20" x2="37" y2="17" stroke="#2dd4bf" stroke-width="0.6"/>
+                                <g stroke="#2dd4bf" stroke-width="0.4" opacity="0.6">
+                                    <line x1="100" y1="-12" x2="100" y2="12"/>
+                                    <line x1="105" y1="-12" x2="105" y2="12"/>
+                                    <line x1="110" y1="-12" x2="110" y2="12"/>
+                                    <line x1="115" y1="-12" x2="115" y2="12"/>
+                                    <line x1="120" y1="-12" x2="120" y2="12"/>
+                                    <line x1="125" y1="-12" x2="125" y2="12"/>
+                                    <line x1="130" y1="-12" x2="130" y2="12"/>
+                                </g>
+                            </g>
+                            <text x="200" y="238" text-anchor="middle" fill="#2dd4bf" font-size="9" font-family="JetBrains Mono" opacity="0.5">L=280, Сталь 40Х</text>
+                        </svg>
+                    </div>
+                    <div class="model-info">
+                        <h4>Ступенчатый вал</h4>
+                        <p>Вал редуктора со шпоночным пазом, резьбой и центрическими отверстиями</p>
+                        <div class="model-tags">
+                            <span class="tag">Сталь 40Х</span>
+                            <span class="tag">L=280</span>
+                            <span class="tag">ЕСКД</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-preview">
+                        <svg viewBox="0 0 400 250" fill="none">
+                            <rect width="400" height="250" fill="#050505"/>
+                            <rect width="400" height="250" fill="url(#g1)"/>
+                            <g transform="translate(200,125)">
+                                <path d="M-60 -60 L60 -60 L60 -45 L-15 -45 L-15 60 L-60 60 Z" 
+                                      stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.08)"/>
+                                <path d="M-50 -50 L50 -50 L50 -45 L-5 -45 L-5 50 L-50 50 Z" 
+                                      stroke="#2dd4bf" stroke-width="0.5" fill="none" stroke-dasharray="3,2"/>
+                                <circle cx="-30" cy="-52" r="6" stroke="#14b8a6" stroke-width="1" fill="#050505"/>
+                                <circle cx="30" cy="-52" r="6" stroke="#14b8a6" stroke-width="1" fill="#050505"/>
+                                <circle cx="-37" cy="10" r="6" stroke="#14b8a6" stroke-width="1" fill="#050505"/>
+                                <circle cx="-37" cy="40" r="6" stroke="#14b8a6" stroke-width="1" fill="#050505"/>
+                                <path d="M-15 -10 L-15 20 L-40 20" stroke="#2dd4bf" stroke-width="0.8" fill="none" stroke-dasharray="4,3"/>
+                                <line x1="-70" y1="-60" x2="-70" y2="60" stroke="#2dd4bf" stroke-width="0.5" opacity="0.4"/>
+                                <line x1="-60" y1="70" x2="60" y2="70" stroke="#2dd4bf" stroke-width="0.5" opacity="0.4"/>
+                            </g>
+                            <text x="200" y="238" text-anchor="middle" fill="#2dd4bf" font-size="9" font-family="JetBrains Mono" opacity="0.5">Кронштейн, S=15</text>
+                        </svg>
+                    </div>
+                    <div class="model-info">
+                        <h4>Кронштейн опорный</h4>
+                        <p>Г-образный кронштейн с крепёжными отверстиями и усиливающим ребром</p>
+                        <div class="model-tags">
+                            <span class="tag">S=15</span>
+                            <span class="tag">Сталь 3</span>
+                            <span class="tag">Сварной</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-card">
+                    <div class="model-preview">
+                        <svg viewBox="0 0 400 250" fill="none">
+                            <rect width="400" height="250" fill="#050505"/>
+                            <rect width="400" height="250" fill="url(#g1)"/>
+                            <g transform="translate(200,125)">
+                                <ellipse cx="0" cy="10" rx="80" ry="25" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.06)"/>
+                                <ellipse cx="0" cy="-5" rx="80" ry="25" stroke="#14b8a6" stroke-width="1.5" fill="rgba(20,184,166,0.1)"/>
+                                <line x1="-80" y1="-5" x2="-80" y2="10" stroke="#14b8a6" stroke-width="1.5"/>
+                                <line x1="80" y1="-5" x2="80" y2="10" stroke="#14b8a6" stroke-width="1.5"/>
+                                <ellipse cx="0" cy="-5" rx="25" ry="8" stroke="#2dd4bf" stroke-width="1" fill="#050505"/>
+                                <ellipse cx="0" cy="10" rx="25" ry="8" stroke="#2dd4bf" stroke-width="0.8" fill="none" stroke-dasharray="2,2"/>
+                                <ellipse cx="55" cy="-5" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="-55" cy="-5" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="0" cy="-18" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="0" cy="8" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="38" cy="-15" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="-38" cy="-15" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="38" cy="5" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="-38" cy="5" rx="5" ry="2" stroke="#14b8a6" stroke-width="0.8" fill="rgba(20,184,166,0.2)"/>
+                                <ellipse cx="0" cy="-20" rx="35" ry="10" stroke="#14b8a6" stroke-width="1" fill="rgba(20,184,166,0.08)"/>
+                                <ellipse cx="0" cy="-5" rx="35" ry="10" stroke="#14b8a6" stroke-width="0.8" fill="none" stroke-dasharray="2,2"/>
+                                <line x1="-35" y1="-20" x2="-35" y2="-5" stroke="#14b8a6" stroke-width="1"/>
+                                <line x1="35" y1="-20" x2="35" y2="-5" stroke="#14b8a6" stroke-width="1"/>
+                            </g>
+                            <text x="200" y="238" text-anchor="middle" fill="#2dd4bf" font-size="9" font-family="JetBrains Mono" opacity="0.5">Фланец Ø160, 8 отверстий</text>
+                        </svg>
+                    </div>
+                    <div class="model-info">
+                        <h4>Фланец соединительный</h4>
+                        <p>Фланец с 8 отверстиями под болты и центрирующей втулкой</p>
+                        <div class="model-tags">
+                            <span class="tag">Ø160</span>
+                            <span class="tag">8×M10</span>
+                            <span class="tag">Сталь 20</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">// контакты</div>
+                <h2 class="section-title">Свяжитесь со мной</h2>
+                <p class="section-desc">Готов обсудить ваш проект. Напишите мне в любую удобную соцсеть</p>
+            </div>
+            <div class="contact-content fade-in">
+                <div class="social-links">
+                    <a href="https://t.me/username" target="_blank" class="social-link">
+                        <i class="bi bi-telegram"></i>
+                        Telegram
+                    </a>
+                    <a href="https://vk.com/username" target="_blank" class="social-link">
+                        <i class="bi bi-chat-fill"></i>
+                        ВКонтакте
+                    </a>
+                    <a href="mailto:email@example.com" class="social-link">
+                        <i class="bi bi-envelope-fill"></i>
+                        Email
+                    </a>
+                    <a href="https://wa.me/79001234567" target="_blank" class="social-link">
+                        <i class="bi bi-whatsapp"></i>
+                        WhatsApp
+                    </a>
+                    <a href="https://github.com/username" target="_blank" class="social-link">
+                        <i class="bi bi-github"></i>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Uncknow1986. Все модели выполнены в КОМПАС-3D.</p>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('navLinks');
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.model-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `translateY(-6px) perspective(1000px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    </script>
 </body>
 </html>
