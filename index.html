@@ -1,46 +1,127 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unkcnow1986</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-
-    .card {
-      background: #1f2937;
-      padding: 40px;
-      border-radius: 16px;
-      max-width: 500px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      color: white;
-    }
-
-    p {
-      margin: 0;
-      color: #9ca3af;
-    }
-  </style>
+  <title>Unkcnow1986 — личный сайт</title>
+  <meta name="description" content="Персональный сайт Unkcnow1986. Обо мне, проекты и контакты.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
 </head>
 <body>
-  <div class="card">
-    <h1>Unkcnow1986</h1>
-    <p>Мой первый сайт через GitHub и Netlify.</p>
-  </div>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="/" class="logo">Unkcnow1986</a>
+
+      <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-nav">
+        ☰
+      </button>
+
+      <nav class="nav" id="primary-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="/" class="active">Главная</a></li>
+          <li><a href="/about.html">Обо мне</a></li>
+          <li><a href="/contact.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Персональный сайт</p>
+        <h1>Привет, я <span class="gradient-text">Unkcnow1986</span></h1>
+        <p class="lead">
+          Это мой личный сайт. Здесь можно рассказать о себе, показать проекты,
+          добавить контакты и сделать страницу визиткой.
+        </p>
+
+        <div class="actions">
+          <a href="/about.html" class="btn btn-primary">Обо мне</a>
+          <a href="/contact.html" class="btn btn-secondary">Написать мне</a>
+        </div>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3>Просто</h3>
+            <p>
+              Минимальный дизайн, понятная структура и быстрый доступ к главной информации.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Быстро</h3>
+            <p>
+              Сайт работает на статических страницах, поэтому открывается быстро и стабильно.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Твой стиль</h3>
+            <p>
+              Later можно заменить тексты, цвета, добавить фото, проекты, соцсети и блог.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Что можно разместить на этом сайте</h2>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3>Визитка</h3>
+            <p>
+              Имя, короткое описание, контакты и ссылки на соцсети.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Портфолио</h3>
+            <p>
+              Проекты, работы, скриншоты, описания и ссылки на готовые сайты.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Блог</h3>
+            <p>
+              Заметки, статьи, мысли, обзоры и личные записи.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Услуги</h3>
+            <p>
+              Если делаешь что-то на заказ, можно описать услуги и цены.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-card">
+          <h2>Хочешь связаться?</h2>
+          <p>
+            Заполни форму на странице контактов, и сообщение придёт прямо в панель Netlify.
+          </p>
+          <a href="/contact.html" class="btn btn-primary">Открыть контакты</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Unkcnow1986</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
